@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.nom) }}
+
+        {{ form_row(form.submit, { 'label': 'Rechercher' }) }}
+        {{ form_row(form.reset, { 'label': 'Annuler' }) }}
+    {{ form_end(form) }}
+
+    <h1>Appartements list</h1>
+
+
+    {% for appartement in appartements %}
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img class="img-responsive" src="http://placehold.it/400x400"/>
+                        </div>
+                        <div class="col-md-8">
+                            {{ appartement.description |nl2br }}
+                        </div>
+                        <div class="col-md-2">
+                            {{ appartement.adresse1 }} <br>
+                            {{ appartement.adresse2 }} <br>
+                            {{ appartement.cp }} {{ appartement.ville }}
+                            <div class="pull-down">
+                                <a href="{{ path('locations_show', { 'id': appartement.id }) }}" class="btn btn-default">show</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+{% endblock %}
