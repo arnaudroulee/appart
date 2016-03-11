@@ -54,8 +54,6 @@ class AppartementsController extends Controller
 
         }
 
-
-
         $appartements = $em->getRepository('AppBundle:Appartements')->findBy($data);
 
         return $this->render('appartements/index.html.twig', array(

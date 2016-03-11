@@ -10,15 +10,5 @@
     <field name="adresse2" type="string" column="adresse2" length="255" nullable="false"/>
     <field name="cp" type="integer" column="cp" nullable="false"/>
     <field name="ville" type="string" column="ville" length="255" nullable="false"/>
-    <many-to-many field="idPhotos" target-entity="Photos" inversed-by="idAppartements">
-      <join-table name="appartements_photos">
-        <join-columns>
-          <join-column name="id_appartements" referenced-column-name="id"/>
-        </join-columns>
-        <inverse-join-columns>
-          <join-column name="id_photos" referenced-column-name="id"/>
-        </inverse-join-columns>
-      </join-table>
-    </many-to-many>
   </entity>
 </doctrine-mapping>

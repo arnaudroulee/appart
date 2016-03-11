@@ -13,15 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Appartements
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
@@ -62,6 +53,15 @@ class Appartements
      * @ORM\Column(name="ville", type="string", length=255, nullable=false)
      */
     private $ville;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
 
 
@@ -211,50 +211,5 @@ class Appartements
     public function getId()
     {
         return $this->id;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $idPhotos;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->idPhotos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add idPhotos
-     *
-     * @param \AppBundle\Entity\Photos $idPhotos
-     * @return Appartements
-     */
-    public function addIdPhoto(\AppBundle\Entity\Photos $idPhotos)
-    {
-        $this->idPhotos[] = $idPhotos;
-
-        return $this;
-    }
-
-    /**
-     * Remove idPhotos
-     *
-     * @param \AppBundle\Entity\Photos $idPhotos
-     */
-    public function removeIdPhoto(\AppBundle\Entity\Photos $idPhotos)
-    {
-        $this->idPhotos->removeElement($idPhotos);
-    }
-
-    /**
-     * Get idPhotos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIdPhotos()
-    {
-        return $this->idPhotos;
     }
 }

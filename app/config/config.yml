@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AppartUserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -11,6 +12,7 @@ parameters:
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
+    translator: ~
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -53,6 +55,8 @@ doctrine:
         #   2. Uncomment database_path in parameters.yml.dist
         #   3. Uncomment next line:
         #     path:     "%database_path%"
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -107,3 +111,41 @@ assetic:
         jquery:
             inputs:
                 - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Appart\UserBundle\Entity\User
+    group:
+        group_class: Appart\UserBundle\Entity\Group
+    from_email:
+            address: info@appart.com
+            sender_name: Info Appart
+
+sonata_admin:
+    title: Admin
+
+sonata_user:
+    security_acl: false
+    manager_type: orm
+    class:
+        user: Appart\UserBundle\Entity\User
+        group: Appart\UserBundle\Entity\Group
+    impersonating:
+        route: homepage
+    admin:
+        user:
+            class: Appart\UserBundle\Admin\UserAdmin
+            controller: SonataAdminBundle:CRUD
+            translation: SonataUserBundle
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+        sonata.admin.block.search_result: ~
+        sonata.user.block.menu: ~

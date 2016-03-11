@@ -6,45 +6,82 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Photos
+ *
+ * @ORM\Table(name="photos")
+ * @ORM\Entity
  */
 class Photos
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="appartement_id", type="integer", nullable=false)
+     */
+    private $appartementId;
+
+    /**
      * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, nullable=false)
      */
     private $path;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="principale", type="integer", nullable=false)
      */
     private $principale;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date_creation", type="datetime", nullable=false)
      */
     private $dateCreation;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="active", type="integer", nullable=false)
      */
     private $active;
 
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Appartements
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Appartements")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
      */
     private $id;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $idAppartements;
+
 
     /**
-     * Constructor
+     * Set appartementId
+     *
+     * @param integer $appartementId
+     * @return Photos
      */
-    public function __construct()
+    public function setAppartementId($appartementId)
     {
-        $this->idAppartements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->appartementId = $appartementId;
+
+        return $this;
+    }
+
+    /**
+     * Get appartementId
+     *
+     * @return integer 
+     */
+    public function getAppartementId()
+    {
+        return $this->appartementId;
     }
 
     /**
@@ -140,45 +177,25 @@ class Photos
     }
 
     /**
-     * Get id
+     * Set id
      *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Add idAppartements
-     *
-     * @param \AppBundle\Entity\Appartements $idAppartements
+     * @param \AppBundle\Entity\Appartements $id
      * @return Photos
      */
-    public function addIdAppartement(\AppBundle\Entity\Appartements $idAppartements)
+    public function setId(\AppBundle\Entity\Appartements $id)
     {
-        $this->idAppartements[] = $idAppartements;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Remove idAppartements
+     * Get id
      *
-     * @param \AppBundle\Entity\Appartements $idAppartements
+     * @return \AppBundle\Entity\Appartements 
      */
-    public function removeIdAppartement(\AppBundle\Entity\Appartements $idAppartements)
+    public function getId()
     {
-        $this->idAppartements->removeElement($idAppartements);
-    }
-
-    /**
-     * Get idAppartements
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIdAppartements()
-    {
-        return $this->idAppartements;
+        return $this->id;
     }
 }
