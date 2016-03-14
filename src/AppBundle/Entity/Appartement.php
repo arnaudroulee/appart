@@ -76,7 +76,7 @@ class Appartement
     /**
      * @var Media
      *
-     * @ORM\ManyToOne(targetEntity="Appart\AdminBundle\Entity\User", cascade={"persist"}, fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="Appart\AdminBundle\Entity\User", inversedBy="appartements", cascade={"persist"}, fetch="LAZY")
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(name="user", referencedColumnName="id", nullable=false)
      * })
@@ -86,7 +86,7 @@ class Appartement
     /**
      * @var Gallery
      *
-     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", inversedBy="appartements", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", cascade={"persist"})
      * @ORM\JoinColumns({
      *     @ORM\JoinColumn(name="gallery", referencedColumnName="id", nullable=false)
      * })

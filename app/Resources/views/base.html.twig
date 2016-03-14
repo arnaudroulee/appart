@@ -8,14 +8,45 @@
         {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <style>
+            .navbar{
+                border: none;
+                border-radius: 0;
+                background-color: rgba(0,0,0,0.7);
+            }
+            .navbar-inverse {
+                background-image: none !important;
+                border-radius: 0px;
+            }
+        </style>
     </head>
     <body>
         <div class="container-fluid">
-        {% block body %}{% endblock %}
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('homepage') }}">Locations saisonnières</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-ex-collapse">
+                    {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'AppBundle:menu:knp_menu.html.twig'}) }}
+                </div>
+                </div>
+            </nav>
+            <div class="parallax-window" style="min-height: 300px; background: rgba(0, 0, 0, 0.4) url('images/gridtile.png') repeat scroll 0 0;" data-parallax="scroll" data-image-src="{{ asset('image/bordeaux.jpg') }}">
+                
+            </div>
+            {% block body %}{% endblock %}
         </div>
         {% javascripts '@jquery' '@bootstrap_js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        <script src="{{ asset('js/parallax.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

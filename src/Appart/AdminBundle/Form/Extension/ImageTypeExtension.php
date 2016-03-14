@@ -18,7 +18,7 @@ class ImageTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return FileType::class;
+        return 'Symfony\Component\Form\Extension\Core\Type\FileType';
     }
 
     /**

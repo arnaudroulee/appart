@@ -29,6 +29,16 @@ class Gallery extends BaseGallery
      * @var int $id
      */
     protected $id;
+    
+    /**
+     * @var Gallery
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Gallery", inversedBy="appartements", cascade={"persist"})
+     * @ORM\JoinColumns({
+     *     @ORM\JoinColumn(name="gallery", referencedColumnName="id", nullable=false)
+     * })
+     */
+    private $appartement;
 
     /**
      * Get id
