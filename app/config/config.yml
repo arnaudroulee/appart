@@ -2,12 +2,14 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-    - { resource: "@AppartUserBundle/Resources/config/services.yml" }
+    - { resource: "@AppartAdminBundle/Resources/config/services.yml" }
+    - { resource: "@ApplicationSonataMediaBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
+    sonata.media.provider.image.class: Application\Sonata\MediaBundle\Provider\ImageProvider
 
 framework:
     #esi:             ~
@@ -36,8 +38,12 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - bootstrap_3_layout.html.twig
     form:
-        resources: ['bootstrap_3_layout.html.twig']
+        resources:
+            - 'AppartAdminBundle:Form:fields.html.twig'
+            - 'ApplicationSonataMediaBundle:Form:media_widgets.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -107,6 +113,10 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff
             output: "fonts/glyphicons-halflings-regular.woff"
+        bootstrap_glyphicons_woff2:
+                    inputs:
+                        - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2
+                    output: "fonts/glyphicons-halflings-regular.woff2"
 
         jquery:
             inputs:
@@ -115,9 +125,9 @@ assetic:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Appart\UserBundle\Entity\User
+    user_class: Appart\AdminBundle\Entity\User
     group:
-        group_class: Appart\UserBundle\Entity\Group
+        group_class: Appart\AdminBundle\Entity\Group
     from_email:
             address: info@appart.com
             sender_name: Info Appart
@@ -129,13 +139,13 @@ sonata_user:
     security_acl: false
     manager_type: orm
     class:
-        user: Appart\UserBundle\Entity\User
-        group: Appart\UserBundle\Entity\Group
+        user: Appart\AdminBundle\Entity\User
+        group: Appart\AdminBundle\Entity\Group
     impersonating:
         route: homepage
     admin:
         user:
-            class: Appart\UserBundle\Admin\UserAdmin
+            class: Appart\AdminBundle\Admin\UserAdmin
             controller: SonataAdminBundle:CRUD
             translation: SonataUserBundle
 
@@ -149,3 +159,29 @@ sonata_block:
         sonata.block.service.rss: ~
         sonata.admin.block.search_result: ~
         sonata.user.block.menu: ~
+
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    default_context: default
+    db_driver: doctrine_orm
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.image
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            directory:  %kernel.root_dir%/../web/uploads/media
+            create:     false

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ appartement.nom }}</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                {% if appartement.gallery and appartement.gallery.galleryHasMedias %}
+                    <ol class="carousel-indicators">
+                        {% set active = 'active' %}
+
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+
+                        {% set num = 1 %}
+
+                        {% for picture in appartement.gallery.galleryHasMedias %}
+                            <li data-target="#carousel-example-generic" data-slide-to="{{ num }}"></li>
+                            {% set active = '' %}
+                            {% set num = num + 1 %}
+                        {% endfor %}
+
+                    </ol>
+                {% endif %}
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        {% media appartement.picture, 'reference' %}
+                        <div class="carousel-caption">
+                            <h3>{{ appartement.picture.name }}</h3>
+                        </div>
+                    </div>
+                    {% if appartement.gallery and appartement.gallery.galleryHasMedias %}
+                        {% for picture in appartement.gallery.galleryHasMedias %}
+                            <div class="item">
+                                {% media picture.media, 'reference' %}
+                                <div class="carousel-caption">
+                                    <h3>{{ picture.media.name }}</h3>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if appartement.gallery and appartement.gallery.galleryHasMedias %}
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Description</h3>
+            {{ appartement.description |nl2br }}
+
+            <h3>Adresse</h3>
+            {{ appartement.adresse1 }}<br>
+            {{ appartement.adresse1 }}<br>
+            {{ appartement.cp }} {{ appartement.ville }}<br>
+            <br>
+        </div>
+
+        <div class="col-md-2">
+            <h2 class="pull-right">320 &euro;</h2>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <ul>
+        <li>
+            <a href="{{ path('locations_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('locations_edit', { 'id': appartement.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+
+
+
+
+{% endblock %}

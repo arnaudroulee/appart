@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 
-class AppartementsRecherche
+class AppartementRecherche
 {
     public $nom;
 

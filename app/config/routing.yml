@@ -1,5 +1,5 @@
-appart_user:
-    resource: "@AppartUserBundle/Controller/"
+appart_admin:
+    resource: "@AppartAdminBundle/Controller/"
     type:     annotation
     prefix:   /
 
@@ -46,3 +46,11 @@ sonata_user:
 sonata_user_impersonating:
     pattern:  /
     defaults: { _controller: SonataPageBundle:Page:catchAll }
+
+gallery:
+    resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
+    prefix: /media/gallery
+
+media:
+    resource: '@SonataMediaBundle/Resources/config/routing/media.xml'
+    prefix: /media

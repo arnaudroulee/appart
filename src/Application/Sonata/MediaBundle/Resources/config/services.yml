@@ -1,0 +1,7 @@
+services:
+  application.sonata.media.form.type_extension.media:
+      class: Application\Sonata\MediaBundle\Form\Extension\MediaTypeExtension
+      tags:
+          -
+              name: form.type_extension
+              alias: sonata_media_type

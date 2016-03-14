@@ -1,6 +1,6 @@
 <?php
 
-namespace Appart\UserBundle\Admin;
+namespace Appart\AdminBundle\Admin;
 
 use Sonata\UserBundle\Admin\Entity\UserAdmin as BaseAdmin;
 

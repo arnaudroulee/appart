@@ -2,21 +2,22 @@
 
 namespace AppBundle\Controller;
 
-use Acme\DemoBundle\Form\AppartementsRechercheType;
+use AppBundle\Form\AppartementRechercheType;
+use AppBundle\Entity\Photo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Appartements;
-use AppBundle\Entity\AppartementsRecherche;
-use AppBundle\Form\AppartementsType;
+use AppBundle\Entity\Appartement;
+use AppBundle\Entity\AppartementRecherche;
+use AppBundle\Form\AppartementType;
 
 /**
- * Appartements controller.
+ * Appartement controller.
  *
  * @Route("/locations")
  */
-class AppartementsController extends Controller
+class AppartementController extends Controller
 {
     /**
      * Lists all Appartements entities.
@@ -29,15 +30,11 @@ class AppartementsController extends Controller
         $session = $request->getSession();
         $data = $session->get('recherche', array());
 
-        dump($data);
-
-        $appartementsRecherche = new AppartementsRecherche($data);
-        $form = $this->createForm('AppBundle\Form\AppartementsRechercheType', $appartementsRecherche);
+        $appartementRecherche = new AppartementRecherche($data);
+        $form = $this->createForm('AppBundle\Form\AppartementRechercheType', $appartementRecherche);
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rowData = $request->request->get('appartement_recherche');
@@ -54,24 +51,24 @@ class AppartementsController extends Controller
 
         }
 
-        $appartements = $em->getRepository('AppBundle:Appartements')->findBy($data);
+        $appartements = $this->getDoctrine()->getRepository('AppBundle:Appartement')->findAll();
 
-        return $this->render('appartements/index.html.twig', array(
+        return $this->render('appartement/index.html.twig', array(
             'appartements' => $appartements,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Creates a new Appartements entity.
+     * Creates a new Appartement entity.
      *
      * @Route("/new", name="locations_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
-        $appartement = new Appartements();
-        $form = $this->createForm('AppBundle\Form\AppartementsType', $appartement);
+        $appartement = new Appartement();
+        $form = $this->createForm('AppBundle\Form\AppartementType', $appartement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,38 +79,38 @@ class AppartementsController extends Controller
             return $this->redirectToRoute('locations_show', array('id' => $appartement->getId()));
         }
 
-        return $this->render('appartements/new.html.twig', array(
+        return $this->render('appartement/new.html.twig', array(
             'appartement' => $appartement,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Appartements entity.
+     * Finds and displays a Appartement entity.
      *
      * @Route("/{id}", name="locations_show")
      * @Method("GET")
      */
-    public function showAction(Appartements $appartement)
+    public function showAction(Appartement $appartement)
     {
         $deleteForm = $this->createDeleteForm($appartement);
 
-        return $this->render('appartements/show.html.twig', array(
+        return $this->render('appartement/show.html.twig', array(
             'appartement' => $appartement,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Appartements entity.
+     * Displays a form to edit an existing Appartement entity.
      *
      * @Route("/{id}/edit", name="locations_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Appartements $appartement)
+    public function editAction(Request $request, Appartement $appartement)
     {
         $deleteForm = $this->createDeleteForm($appartement);
-        $editForm = $this->createForm('AppBundle\Form\AppartementsType', $appartement);
+        $editForm = $this->createForm('AppBundle\Form\AppartementType', $appartement);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -124,7 +121,7 @@ class AppartementsController extends Controller
             return $this->redirectToRoute('locations_edit', array('id' => $appartement->getId()));
         }
 
-        return $this->render('appartements/edit.html.twig', array(
+        return $this->render('appartement/edit.html.twig', array(
             'appartement' => $appartement,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -132,12 +129,12 @@ class AppartementsController extends Controller
     }
 
     /**
-     * Deletes a Appartements entity.
+     * Deletes a Appartement entity.
      *
      * @Route("/{id}", name="locations_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Appartements $appartement)
+    public function deleteAction(Request $request, Appartement $appartement)
     {
         $form = $this->createDeleteForm($appartement);
         $form->handleRequest($request);
@@ -152,13 +149,13 @@ class AppartementsController extends Controller
     }
 
     /**
-     * Creates a form to delete a Appartements entity.
+     * Creates a form to delete a Appartement entity.
      *
-     * @param Appartements $appartement The Appartements entity
+     * @param Appartement $appartement The Appartement entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Appartements $appartement)
+    private function createDeleteForm(Appartement $appartement)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('locations_delete', array('id' => $appartement->getId())))

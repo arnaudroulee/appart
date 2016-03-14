@@ -18,12 +18,16 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
+            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+
             new AppBundle\AppBundle(),
 
             // user
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
-            new Appart\UserBundle\AppartUserBundle(),
+            new Appart\AdminBundle\AppartAdminBundle(),
+
+            new JMS\SerializerBundle\JMSSerializerBundle(),
 
             // admin
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
@@ -31,7 +35,9 @@ class AppKernel extends Kernel
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\MediaBundle\SonataMediaBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
+            new Sonata\IntlBundle\SonataIntlBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

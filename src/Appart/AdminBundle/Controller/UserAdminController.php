@@ -1,6 +1,6 @@
 <?php
 
-namespace Appart\UserBundle\Controller;
+namespace Appart\AdminBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 
