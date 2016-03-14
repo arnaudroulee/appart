@@ -2,50 +2,56 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
 
-    {{ form_row(form.nom) }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Recherche
+            </h3>
+        </div>
+        <div class="panel-body">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
 
-    {{ form_row(form.submit, { 'label': 'Rechercher' }) }}
-    {{ form_row(form.reset, { 'label': 'Annuler' }) }}
-    {{ form_end(form) }}
+            {{ form_row(form.nom) }}
 
-    <h1>Appartements list</h1>
+            {{ form_row(form.submit, { 'label': 'Rechercher' }) }}
+            {{ form_row(form.reset, { 'label': 'Annuler' }) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 
+    <hr>
 
     {% for appartement in appartements %}
-        <div class="row">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <a href="{{ path('locations_show', { 'id': appartement.id }) }}">
-                                {% thumbnail appartement.picture, 'big' with {'class': 'img-responsive'} %}
-                            </a>
-                        </div>
-                        <div class="col-md-7">
-                            {{ appartement.description |nl2br }}
-                        </div>
-                        <div class="col-md-2">
-                            {{ appartement.adresse1 }} <br>
-                            {{ appartement.adresse2 }} <br>
-                            {{ appartement.cp }} {{ appartement.ville }}
-                            <div class="pull-down">
-                                <a href="{{ path('locations_show', { 'id': appartement.id }) }}"
-                                   class="btn btn-default">show</a>
-                            </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="{{ path('locations_show', { 'id': appartement.id }) }}">
+                            {% thumbnail appartement.picture, 'big' with {'class': 'img-responsive'} %}
+                        </a>
+                    </div>
+                    <div class="col-md-7">
+                        {{ appartement.description |nl2br }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ appartement.adresse1 }} <br>
+                        {{ appartement.adresse2 }} <br>
+                        {{ appartement.cp }} {{ appartement.ville }}
+                        <div class="pull-down">
+                            <a href="{{ path('locations_show', { 'id': appartement.id }) }}"
+                               class="btn btn-default">show</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     {% endfor %}
