@@ -22,9 +22,9 @@ class MenuBuilder
        $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
         
-        $menu->addChild('Application Sf2', array('route' => 'homepage', 'class' => ''));
+        $menu->addChild('Se connecter', array('route' => 'fos_user_security_login', 'class' => 'nav-right'));
         
-        $menu->addChild('Home', array('route' => 'homepage'));
+        $menu->addChild('S\'inscrire', array('route' => 'fos_user_registration_register'));
         // ... ajoutez ici les autres liens de base
 
         return $menu;
