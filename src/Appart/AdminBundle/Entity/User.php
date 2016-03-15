@@ -5,15 +5,19 @@ namespace Appart\AdminBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="fos_user")
  * @ORM\Entity(repositoryClass="Appart\AdminBundle\Repository\UserRepository")
+ * @UniqueEntity("email", message="fos_user.email.invalid", groups={"Registration", "Profile"})
  */
 class User extends BaseUser
 {
+
     /**
      * @var integer
      *
@@ -32,6 +36,27 @@ class User extends BaseUser
     protected $groups;
 
     /**
+     *
+     * @var type 
+     * @Assert\NotBlank(message="fos_user.password.blank", groups={"RegistrationSite", "ProfileSite"})
+     */
+    protected $firstname;
+
+    /**
+     *
+     * @var type 
+     * @Assert\NotBlank(message="fos_user.password.blank", groups={"RegistrationSite", "ProfileSite"})
+     */
+    protected $lastname;
+
+    /**
+     *
+     * @var type 
+     * @Assert\NotBlank(message="fos_user.password.blank", groups={"Registration", "ProfileSite"})
+     */
+    protected $phone;
+
+    /**
      * @var Gallery
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Appartement", mappedBy="user", cascade={"persist"})
@@ -42,7 +67,18 @@ class User extends BaseUser
     {
         parent::__construct();
 
+        $this->username = 'username';
+
         $this->appartements = new ArrayCollection();
+    }
+
+    public function setEmail($email)
+    {
+        $email = is_null($email) ? '' : $email;
+        parent::setEmail($email);
+        $this->setUsername($email);
+
+        return $this;
     }
 
     /**
@@ -79,4 +115,5 @@ class User extends BaseUser
     {
         return $this->appartements;
     }
+
 }

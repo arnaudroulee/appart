@@ -9,3 +9,15 @@ services:
             class: Appart\AdminBundle\Form\Extension\ImageTypeExtension
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+                
+    appart.admin.form.registration:
+        class: Appart\AdminBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: appart_admin_user_registration }
+        arguments: [%fos_user.model.user.class%]
+        
+    appart.admin.form.profile:
+        class: Appart\AdminBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: appart_admin_user_profile }
+        arguments: [%fos_user.model.user.class%]
