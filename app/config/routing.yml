@@ -22,8 +22,8 @@ fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /resetting
 
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+sonata_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /profile
 
 fos_user_group:

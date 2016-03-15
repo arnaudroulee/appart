@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'header.html.twig' %}
 
 {% block body %}
 
 
-    <div class="panel panel-default">
+    <!--<div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
                 Recherche
@@ -19,40 +19,67 @@
             {{ form_row(form.reset, { 'label': 'Annuler' }) }}
             {{ form_end(form) }}
         </div>
-    </div>
+    </div>-->
 
-    <hr>
+    <div class="adds-wrapper">
+        <div class="tab-content">
+            <div class="tab-pane active" id="allAds">
 
-    {% for appartement in appartements %}
+                {% for appartement in appartements %}
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <a href="{{ path('locations_show', { 'id': appartement.id }) }}">
-                            {% thumbnail appartement.picture, 'big' with {'class': 'img-responsive'} %}
-                        </a>
-                    </div>
-                    <div class="col-md-7">
-                        {{ appartement.description |nl2br }}
-                    </div>
-                    <div class="col-md-2">
-                        {{ appartement.adresse1 }} <br>
-                        {{ appartement.adresse2 }} <br>
-                        {{ appartement.cp }} {{ appartement.ville }}
-                        <div class="pull-down">
-                            <a href="{{ path('locations_show', { 'id': appartement.id }) }}"
-                               class="btn btn-default">show</a>
+                    <div class="item-list">
+                        <div class="cornerRibbons topAds">
+                            <a href="#"> Top Ads</a>
                         </div>
+                        <div class="col-sm-2 no-padding photobox">
+                            <div class="add-image"><span class="photo-count"><i class="fa icon-camera"></i> {{ 1 + appartement.gallery.galleryHasMedias | length }} </span>
+                                <a href="{{ path('locations_show', { 'id': appartement.id }) }}">
+                                    {% thumbnail appartement.picture, 'big' with {'class': 'thumbnail no-margin'} %}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7 add-desc-box">
+                            <div class="add-details">
+                                <h5 class="add-title">
+                                    <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
+                                </h5>
+                                <span class="info-row">
+                                    {{ appartement.description | nl2br }}
+                                    <span class="add-type business-ads tooltipHere" data-toggle="tooltip" data-placement="right" title="Business Ads">B </span>
+                                    <span class="date"><i class=" icon-clock"> </i> Today 1:21 pm </span> -
+                                    <span class="category">Electronics </span>-
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 text-right  price-box">
+                            <h2 class="item-price">  320 &euro;</h2>
+                            <span class="info-row text-left">
+                                <span class="item-location">
+                                     <i class="glyphicon glyphicon-map-marker"></i> Adresse
+                                </span>
+                            </span>
+                            <span class="info-row text-left">
+                                {{ appartement.adresse1 }}
+                            </span><span class="info-row text-left">
+                                {{ appartement.cp }} - {{ appartement.ville }}
+                            </span>
+                            <hr>
+                            <a class="btn btn-danger  btn-sm make-favorite"> <i class="glyphicon glyphicon-home"></i> <span>Réserver</span></a>
+                            <a class="btn btn-default  btn-sm make-favorite"> <i class="glyphicon glyphicon-info-sign"></i> <span>Informations</span></a>
+                        </div>
+
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+    </div>
 
-    {% endfor %}
+
+
+
+
 {% endblock %}
+

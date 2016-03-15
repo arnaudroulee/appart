@@ -3,7 +3,7 @@ services:
         class: AppBundle\Menu\MenuBuilder
         arguments: ["@knp_menu.factory"]
 
-    acme_main.menu.main:
+    app.menu.main:
         class: KnpMenuMenuItem
         factory_service: app.menu_builder
         factory_method: createMainMenu
@@ -11,3 +11,12 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: main }
+
+    app.menu.user:
+        class: KnpMenuMenuItem
+        factory_service: app.menu_builder
+        factory_method: createUserMenu
+        arguments: ["@request"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: user }
