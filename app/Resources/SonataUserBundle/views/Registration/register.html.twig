@@ -1,0 +1,7 @@
+
+{% extends app.request.attributes.get('_route') == 'fos_user_registration_register' ? 'base.html.twig' : 'empty.html.twig' %}
+
+
+{% block fos_user_content %}
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}

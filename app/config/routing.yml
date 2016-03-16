@@ -11,7 +11,7 @@ fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
 sonata_user_profile:
-    resource: "@SonataUserBundle/Resources/config/routing/sonata_profile_1.xml"
+    resource: "@AppBundle/Resources/config/routing/user_profile.xml"
     prefix: /profile
 
 fos_user_register:

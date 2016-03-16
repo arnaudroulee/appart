@@ -31,7 +31,7 @@
                         <div class="cornerRibbons topAds">
                             <a href="#"> Top Ads</a>
                         </div>
-                        <div class="col-sm-2 no-padding photobox">
+                        <div class="col-sm-3 no-padding photobox">
                             <div class="add-image"><span class="photo-count"><i class="fa icon-camera"></i> {{ 1 + appartement.gallery.galleryHasMedias | length }} </span>
                                 <a href="{{ path('locations_show', { 'id': appartement.id }) }}">
                                     {% thumbnail appartement.picture, 'big' with {'class': 'thumbnail no-margin'} %}
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-7 add-desc-box">
+                        <div class="col-sm-6 add-desc-box">
                             <div class="add-details">
                                 <h5 class="add-title">
                                     <a href="{{ path('locations_show', { 'id': appartement.id }) }}">{{ appartement.nom }}</a>
